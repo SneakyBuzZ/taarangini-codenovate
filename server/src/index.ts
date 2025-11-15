@@ -9,6 +9,7 @@ import { errorMiddleware } from "@/middlewares/error-middleware";
 import { connectDB } from "@/utils/db";
 import kycRouter from "@/_user/routes/kyc-route";
 import itineraryRouter from "@/_user/routes/itinerary-route";
+import alertRouter from "./_user/routes/alert-route";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.get("/", (_, res) => {
 app.use("/api/user", userRouter);
 app.use("/api/kyc", kycRouter);
 app.use("/api/itinerary", itineraryRouter);
+app.use("/api/alert", alertRouter);
 app.use(errorMiddleware);
 
 connectDB();
