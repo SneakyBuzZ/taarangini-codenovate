@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 
 @Composable
 fun AppRow(
-  layout: RowLayout = RowLayout.Start,
+  layout: RowLayout = RowLayout.Center,
   modifier: Modifier = Modifier,
   verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
   children: @Composable RowScope.() -> Unit
@@ -34,6 +34,7 @@ fun AppRow(
     children()
   }
 }
+
 
 enum class RowLayout {
   Start,

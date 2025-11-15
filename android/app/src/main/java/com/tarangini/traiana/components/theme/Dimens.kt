@@ -4,6 +4,7 @@ import androidx.compose.ui.unit.dp
 
 object Dimens {
   // Padding
+  val PaddingXXS = 6.dp
   val PaddingXS = 10.dp
   val PaddingS = 16.dp
   val PaddingM = 28.dp
@@ -35,10 +36,11 @@ object Dimens {
   val ElevationL = 8.dp
 
   // Height
-  val HeightXXS = 40.dp
+  val HeightXXS = 45.dp
   val HeightXS = 60.dp
   val HeightS = 100.dp
   val HeightM = 140.dp
   val HeightL = 200.dp
   val HeightXL = 240.dp
+  val HeightXXL = 350.dp
 }

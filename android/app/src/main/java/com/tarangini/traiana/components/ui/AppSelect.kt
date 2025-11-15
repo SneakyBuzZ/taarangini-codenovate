@@ -28,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.tarangini.traiana.components.theme.Colors
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -123,8 +122,9 @@ fun AppSelect(
 
       DropdownMenu(
         modifier = Modifier
-          .width(with(LocalDensity.current) { columnSize.width.toDp() }) // Use Column width here
-          .background(background),
+          .width(with(LocalDensity.current) { columnSize.width.toDp() })
+          .background(background)
+          .clip(MaterialTheme.shapes.medium),
         expanded = expanded,
         onDismissRequest = { expanded = false },
         offset = DpOffset(x = 0.dp, y = 4.dp)

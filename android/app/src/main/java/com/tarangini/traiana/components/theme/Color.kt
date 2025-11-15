@@ -5,7 +5,7 @@ object Colors {
 val Neutral100 = Color(0xFFFFFFFF)
 val Neutral200 = Color(0xFFE9E9E9)
 val Neutral300 = Color(0xFFC9C9C9)
-val Neutral400 = Color(0xFF9F9F9F)
+val Neutral400 = Color(0xFF6C6C6C)
 val Neutral500 = Color(0xFF474747)
 val Neutral600 = Color(0xFF262626)
 val Neutral700 = Color(0xFF1D1D1D)

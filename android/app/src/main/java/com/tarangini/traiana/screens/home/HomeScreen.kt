@@ -80,7 +80,7 @@ fun HomeScreen() {
         .fillMaxWidth()
         .clip(MaterialTheme.shapes.medium)
         .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.medium)
-        .border(1.dp, Colors.Neutral600, MaterialTheme.shapes.medium)
+        .border(1.dp, Colors.Neutral700, MaterialTheme.shapes.medium)
         .height(Dimens.HeightL)
         .padding(Dimens.PaddingXS)
     ) {

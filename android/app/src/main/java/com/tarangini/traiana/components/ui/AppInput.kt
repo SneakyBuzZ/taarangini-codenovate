@@ -2,13 +2,7 @@ package com.tarangini.traiana.components.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,37 +17,38 @@ import com.tarangini.traiana.components.theme.Dimens
 
 @Composable
 fun AppInput(
-  label : String?,
-  value : String,
+  modifier: Modifier = Modifier,
+  label: String? = null,
+  value: String,
   onValueChange: (String) -> Unit,
-  modifier: Modifier= Modifier,
-  placeHolder : String = "",
-  isError : Boolean = false,
-  enabled : Boolean = true,
-){
+  placeHolder: String = "",
+  isError: Boolean = false,
+  enabled: Boolean = true,
+) {
   val borderColor = when {
-    !enabled -> Colors.Neutral700
+    !enabled -> Colors.Neutral600
     isError -> MaterialTheme.colorScheme.error
-    else -> Colors.Neutral700
+    else -> Colors.Neutral600
   }
 
   val background = Colors.Neutral800
 
-  Column (
+  Column(
     modifier = modifier,
-    horizontalAlignment = Alignment.Start,
-    verticalArrangement = Arrangement.spacedBy(6.dp),
-  ){
-    if(label != null){
+    horizontalAlignment = Alignment.Start
+  ) {
+    if (!label.isNullOrBlank()) {
       Text(
         text = label,
         style = MaterialTheme.typography.bodySmall.copy(
           color = Colors.Neutral300
         )
       )
+      Spacer(modifier = Modifier.height(6.dp))
     }
+
     BasicTextField(
-      value =  value,
+      value = value,
       onValueChange = onValueChange,
       enabled = enabled,
       singleLine = true,
@@ -61,15 +56,14 @@ fun AppInput(
         fontSize = 16.sp
       ),
       modifier = Modifier
-        .height(Dimens.HeightXS)
+        .height(Dimens.HeightXXS)
         .background(background, MaterialTheme.shapes.medium)
         .border(1.dp, borderColor, MaterialTheme.shapes.medium)
         .padding(horizontal = 12.dp),
       cursorBrush = SolidColor(Colors.Neutral500),
-      decorationBox = {innerTextField ->
+      decorationBox = { innerTextField ->
         Box(
-          modifier = Modifier
-            .fillMaxWidth(),
+          modifier = Modifier.fillMaxWidth(),
           contentAlignment = Alignment.CenterStart
         ) {
           if (value.isEmpty()) {
@@ -82,10 +76,7 @@ fun AppInput(
           }
           innerTextField()
         }
-      },
+      }
     )
-
-    Spacer(modifier = Modifier.height(10.dp))
   }
-
 }

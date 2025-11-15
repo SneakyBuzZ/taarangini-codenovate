@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.tarangini.traiana.components.shared.UserAvatar
 import com.tarangini.traiana.components.theme.Colors
 import com.tarangini.traiana.components.theme.Dimens
-import com.tarangini.traiana.utils.SvgLoader
+import com.tarangini.traiana.components.ui.AppImage
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.material.icons.Icons
@@ -43,10 +43,19 @@ fun AppTopbar(
     Pair("HOME",R.drawable.ic_home),
     Pair("TRIP",R.drawable.ic_trip),
     Pair("EVENTS",R.drawable.ic_events),
-    Pair("ALERT",R.drawable.ic_alert),
+    Pair("ALERTS",R.drawable.ic_alert),
     Pair("EMERGENCY",R.drawable.ic_emergency),
   )
-  var activeIndex by remember { mutableStateOf(0) }
+  var activeIndex by remember { mutableIntStateOf(0) }
+
+  fun handleRouteChange(route: String, index: Int) {
+    activeIndex = index
+    navController.navigate(route.lowercase()) {
+      popUpTo(navController.graph.startDestinationId) { saveState = true }
+      launchSingleTop = true
+      restoreState = true
+    }
+  }
 
   Box(
     modifier = modifier
@@ -63,7 +72,7 @@ fun AppTopbar(
         )
       }
   ) {
-    SvgLoader(
+    AppImage(
       url = "https://res.cloudinary.com/dvwnsmtdy/image/upload/v1757780482/top-grad1_iseyyz.png",
       modifier = Modifier
         .fillMaxWidth()
@@ -144,12 +153,12 @@ fun AppTopbar(
       ) {
         Text(
           text = "Welcome Tourist!",
-          style = MaterialTheme.typography.headlineMedium
+          style = MaterialTheme.typography.headlineLarge
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
           text = "You are in safe zone. Keep exploring.",
-          style = MaterialTheme.typography.bodySmall.copy(fontSize = 14.sp),
+          style = MaterialTheme.typography.bodyMedium,
           color = Colors.Neutral300
         )
       }
@@ -162,19 +171,19 @@ fun AppTopbar(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.Bottom
       ) {
-        navList.forEachIndexed { index, item ->
+        navList.forEachIndexed { index, (title, iconRes) ->
           val isActive = index == activeIndex
           Column(
             modifier = Modifier
               .weight(1f)
               .fillMaxHeight()
-              .clickable { activeIndex = index }
+              .clickable {  handleRouteChange(title, index) }
               .padding(top = 8.dp),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
           ) {
             Image(
-              painter = painterResource(item.second),
+              painter = painterResource(iconRes),
               contentDescription = "Home",
               modifier = Modifier
                 .size(Dimens.IconSize)
@@ -182,7 +191,7 @@ fun AppTopbar(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-              text = item.first,
+              text = title,
               style = MaterialTheme.typography.bodySmall.copy(
                 color = if (isActive) Color.White else Colors.Neutral400,
                 fontSize = 12.sp

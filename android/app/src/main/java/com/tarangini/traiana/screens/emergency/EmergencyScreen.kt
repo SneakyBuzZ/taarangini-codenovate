@@ -22,7 +22,7 @@ import com.tarangini.traiana.components.theme.Colors
 import com.tarangini.traiana.components.theme.Dimens
 import com.tarangini.traiana.components.ui.AppButton
 import com.tarangini.traiana.components.ui.ButtonVariant
-import com.tarangini.traiana.utils.SvgLoader
+import com.tarangini.traiana.components.ui.AppImage
 
 @Composable
 fun EmergencyScreen(){
@@ -44,7 +44,7 @@ fun EmergencyScreen(){
         .background(MaterialTheme.colorScheme.surface)
         .padding(Dimens.PaddingXS)
     ){
-      SvgLoader(
+      AppImage(
         url = "https://i.pinimg.com/736x/97/9c/b3/979cb3410838984a57a5c1f7f41bde3e.jpg",
         modifier = Modifier
           .fillMaxHeight()

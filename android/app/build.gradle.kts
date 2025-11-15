@@ -114,4 +114,7 @@ dependencies {
 
   // ANDROID SECURITY
   implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
+  // NAVIGATION ANIMATION
+  implementation("androidx.navigation:navigation-compose:2.7.0")
 }

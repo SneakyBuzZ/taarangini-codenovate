@@ -1,8 +1,6 @@
 package com.tarangini.traiana.screens.home
 
-import android.graphics.Paint
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.MaterialTheme

@@ -46,9 +46,7 @@ fun SplashScreen() {
     systemUiController.isNavigationBarVisible = false
     try {
       delay(1000)
-      Log.d("TRIANA", "API CALLED")
       RetrofitInstance.api.getAuthStatus()
-      Log.d("TRIANA" , "API SUCCESSFULLY")
       visible = false
 
       systemUiController.isStatusBarVisible = true
@@ -59,7 +57,6 @@ fun SplashScreen() {
         popUpTo("splash") { inclusive = true }
       }
     } catch (e: Exception) {
-      Log.d("TRIANA" , "API FAILED")
       Log.d("TRIANA", e.message.toString())
       visible = false
 
