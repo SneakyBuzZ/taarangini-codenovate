@@ -67,3 +67,43 @@ export const RegisterItineraryDTO = z.object({
     .min(1),
 });
 export type RegisterItineraryDTOType = z.infer<typeof RegisterItineraryDTO>;
+
+// --- ALERT ---
+
+export const RegisterAlertDTO = z.object({
+  image: z.string().url(),
+  // image: z.string(),
+  title: z.string().min(2).max(100),
+  description: z.string().min(5).max(250),
+  location: z.string().min(5).max(100),
+  severity: z.number().min(0).max(10),
+  categoryChip: z.array(z.enum(["Weather", "Crime", "Health", "Transport"])),
+  //GeoJSON
+  coordinates: z.object({
+    type: z.literal("Point"),
+    coordinates: z
+      .tuple([z.number(), z.number()])
+      //Refine is used to validate the input values so that the database does not contain impure values
+      .refine(
+        (val) =>
+          val[0] >= -180 && val[0] <= 180 && val[1] >= -90 && val[1] <= 90,
+        "Invalid longitude/latitude range"
+      ),
+  }),
+});
+
+export type RegisterAlertDTO = z.infer<typeof RegisterAlertDTO>;
+
+// DTO for fetching nearest alerts
+export const NearestAlertsDTO = z.object({
+  latitude: z
+    .number()
+    .refine((v) => v >= -90 && v <= 90, "Invalid latitude range"),
+  longitude: z
+    .number()
+    .refine((v) => v >= -180 && v <= 180, "Invalid longitude range"),
+  maxDistanceKm: z.number().min(0).max(30).optional(),
+  limit: z.number().min(1).max(5).optional(),
+});
+
+export type NearestAlertsDTOType = z.infer<typeof NearestAlertsDTO>;
