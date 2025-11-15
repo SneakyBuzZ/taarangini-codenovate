@@ -41,7 +41,8 @@ import com.tarangini.traiana.components.theme.Colors
 import com.tarangini.traiana.components.theme.Dimens
 import com.tarangini.traiana.components.ui.AppColumn
 import com.tarangini.traiana.components.ui.AppRow
-import com.tarangini.traiana.components.ui.ColumnLayout
+import com.tarangini.traiana.components.ui.ColumnHorizontalPlacement
+import com.tarangini.traiana.components.ui.ColumnVerticalPlacement
 import com.tarangini.traiana.lib.api.user.User
 import com.tarangini.traiana.lib.api.user.UserViewModel
 
@@ -96,7 +97,7 @@ fun ProfileSheet() {
 fun ProfileContent(user : User, bitmap: Bitmap){
   val navController = LocalNavController.current
   AppColumn(
-    layout = ColumnLayout.Top,
+    vertical = ColumnVerticalPlacement.Top,
     modifier = Modifier
       .fillMaxSize()
       .padding(Dimens.PaddingS)
@@ -125,7 +126,7 @@ fun ProfileContent(user : User, bitmap: Bitmap){
 
     // QR container
     AppColumn(
-      layout = ColumnLayout.Top,
+      vertical = ColumnVerticalPlacement.Top,
       modifier = Modifier
         .fillMaxWidth()
         .clip(MaterialTheme.shapes.medium)
@@ -162,8 +163,8 @@ fun ProfileContent(user : User, bitmap: Bitmap){
     Spacer(modifier = Modifier.height(Dimens.SpaceXL))
 
     AppColumn(
-      layout = ColumnLayout.Top,
-      horizontalAlignment = Alignment.Start,
+      vertical = ColumnVerticalPlacement.Top,
+      horizontal = ColumnHorizontalPlacement.Start,
       modifier = Modifier
         .fillMaxWidth()
     ) {
@@ -177,7 +178,7 @@ fun ProfileContent(user : User, bitmap: Bitmap){
       )
       Spacer(modifier = Modifier.height(Dimens.SpaceL))
       AppColumn (
-        horizontalAlignment = Alignment.Start,
+        horizontal = ColumnHorizontalPlacement.Start,
         modifier = Modifier
           .clip(MaterialTheme.shapes.medium)
           .fillMaxWidth()
@@ -201,7 +202,7 @@ fun ProfileContent(user : User, bitmap: Bitmap){
       Spacer(modifier = Modifier.height(Dimens.SpaceL))
       AppRow {
         AppColumn (
-          horizontalAlignment = Alignment.Start,
+          horizontal = ColumnHorizontalPlacement.Start,
           modifier = Modifier
             .clip(MaterialTheme.shapes.medium)
             .fillMaxWidth()
@@ -225,7 +226,7 @@ fun ProfileContent(user : User, bitmap: Bitmap){
         }
         Spacer(modifier = Modifier.width(Dimens.SpaceS))
         AppColumn (
-          horizontalAlignment = Alignment.Start,
+          horizontal = ColumnHorizontalPlacement.Start,
           modifier = Modifier
             .clip(MaterialTheme.shapes.medium)
             .fillMaxWidth()

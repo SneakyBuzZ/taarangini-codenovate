@@ -45,6 +45,7 @@ fun AppScaffold() {
             )
           )
         }
+        "profile" -> Unit
         "splash" -> Unit
         else -> AppTopbar(navController)
       }

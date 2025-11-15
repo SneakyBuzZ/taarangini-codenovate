@@ -95,7 +95,7 @@ fun AlertCard(
         modifier = Modifier
           .fillMaxWidth()
           .padding(horizontal = Dimens.PaddingXXS),
-        layout = RowLayout.Start
+        horizontal = RowHorizontalPlacement.Start
       ) {
         AppBadge(
           text = alert.date,

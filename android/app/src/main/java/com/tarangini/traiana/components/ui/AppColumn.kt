@@ -9,30 +9,44 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun AppColumn(
-  layout: ColumnLayout = ColumnLayout.Top,
   modifier: Modifier = Modifier,
-  horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+
+  horizontal: ColumnHorizontalPlacement = ColumnHorizontalPlacement.Center,
+  vertical: ColumnVerticalPlacement = ColumnVerticalPlacement.Center,
+
   children: @Composable ColumnScope.() -> Unit
 ) {
-  val arrangement = when (layout) {
-    ColumnLayout.Top -> Arrangement.Top
-    ColumnLayout.Center -> Arrangement.Center
-    ColumnLayout.Bottom -> Arrangement.Bottom
-    ColumnLayout.SpaceBetween -> Arrangement.SpaceBetween
-    ColumnLayout.SpaceAround -> Arrangement.SpaceAround
-    ColumnLayout.SpaceEvenly -> Arrangement.SpaceEvenly
+  val horizontalAlignment = when (horizontal) {
+    ColumnHorizontalPlacement.Start -> Alignment.Start
+    ColumnHorizontalPlacement.Center -> Alignment.CenterHorizontally
+    ColumnHorizontalPlacement.End -> Alignment.End
+  }
+
+  val verticalArrangement = when (vertical) {
+    ColumnVerticalPlacement.Top -> Arrangement.Top
+    ColumnVerticalPlacement.Center -> Arrangement.Center
+    ColumnVerticalPlacement.Bottom -> Arrangement.Bottom
+    ColumnVerticalPlacement.SpaceBetween -> Arrangement.SpaceBetween
+    ColumnVerticalPlacement.SpaceAround -> Arrangement.SpaceAround
+    ColumnVerticalPlacement.SpaceEvenly -> Arrangement.SpaceEvenly
   }
 
   Column(
     modifier = modifier,
-    verticalArrangement = arrangement,
-    horizontalAlignment = Alignment.CenterHorizontally
+    horizontalAlignment = horizontalAlignment,
+    verticalArrangement = verticalArrangement
   ) {
     children()
   }
 }
 
-enum class ColumnLayout {
+enum class ColumnHorizontalPlacement {
+  Start,
+  Center,
+  End
+}
+
+enum class ColumnVerticalPlacement {
   Top,
   Center,
   Bottom,

@@ -35,7 +35,7 @@ import com.tarangini.traiana.components.ui.AppButton
 import com.tarangini.traiana.components.ui.AppInput
 import com.tarangini.traiana.components.ui.AppRow
 import com.tarangini.traiana.components.ui.ButtonVariant
-import com.tarangini.traiana.components.ui.RowLayout
+import com.tarangini.traiana.components.ui.RowHorizontalPlacement
 import com.tarangini.traiana.lib.api.itinerary.ItineraryViewModel
 import com.tarangini.traiana.lib.dto.LocationDTO
 import com.tarangini.traiana.lib.dto.RegisterItineraryFormDTO
@@ -205,7 +205,7 @@ fun ItineraryDetails(
     AppRow(
       modifier = Modifier
         .fillMaxWidth(),
-      layout = RowLayout.End
+      horizontal = RowHorizontalPlacement.End
     ){
       AppButton(
         text = "-",

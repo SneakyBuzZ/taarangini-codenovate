@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.tarangini.traiana.components.theme.Colors
 import com.tarangini.traiana.components.theme.Dimens
 import com.tarangini.traiana.components.ui.AppRow
-import com.tarangini.traiana.components.ui.RowLayout
+import com.tarangini.traiana.components.ui.RowHorizontalPlacement
 
 @Composable
 fun ScoreDetails(
@@ -36,7 +36,7 @@ fun ScoreDetails(
         else -> Colors.CoralBlue100
       }
       AppRow(
-        layout = RowLayout.SpaceEvenly,
+        horizontal = RowHorizontalPlacement.SpaceEvenly,
         modifier = Modifier
           .fillMaxWidth()
           .height(20.dp)

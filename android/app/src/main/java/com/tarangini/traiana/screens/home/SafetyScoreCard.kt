@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tarangini.traiana.components.theme.Colors
 import com.tarangini.traiana.components.ui.AppColumn
-import com.tarangini.traiana.components.ui.ColumnLayout
+import com.tarangini.traiana.components.ui.ColumnHorizontalPlacement
 
 @Composable
 fun SafetyScoreCard(
@@ -52,7 +52,7 @@ fun SafetyScoreCard(
     AppColumn (
       modifier = Modifier
         .fillMaxWidth(),
-      layout = ColumnLayout.Center
+      horizontal = ColumnHorizontalPlacement.Center
     ){
       Text(
         text = labelText,

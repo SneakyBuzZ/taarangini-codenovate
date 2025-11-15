@@ -30,8 +30,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.tarangini.traiana.components.ui.AppRow
-import com.tarangini.traiana.components.ui.RowLayout
 import com.tarangini.traiana.R
+import com.tarangini.traiana.components.ui.RowHorizontalPlacement
 
 @Composable
 fun AppTopbar(
@@ -94,12 +94,11 @@ fun AppTopbar(
           .fillMaxWidth()
           .height(barRowHeight)
           .padding(horizontal = Dimens.PaddingS),
-        layout = RowLayout.SpaceBetween
+        horizontal = RowHorizontalPlacement.SpaceBetween
       ) {
         AppRow (
           modifier = Modifier
             .fillMaxHeight(),
-          layout = RowLayout.Center
         ) {
           Image(
             painter = painterResource(R.drawable.ic_location),
@@ -116,11 +115,13 @@ fun AppTopbar(
             verticalArrangement = Arrangement.Center
           ) {
             Text(
-              "Anand Nagar Colony",
-              style = MaterialTheme.typography.headlineSmall
+              "KMIT Hyderabad",
+              style = MaterialTheme.typography.headlineSmall.copy(
+                fontSize = 16.sp
+              )
             )
             Text(
-              "Khairatabad, Hyderabad",
+              "Hari Vihar Colony, Bhawani Nagar",
               style = MaterialTheme.typography.bodySmall.copy(
                 fontSize = 12.sp
               )
@@ -152,7 +153,7 @@ fun AppTopbar(
         verticalArrangement = Arrangement.Center
       ) {
         Text(
-          text = "Welcome Tourist!",
+          text = "Welcome Trotter!",
           style = MaterialTheme.typography.headlineLarge
         )
         Spacer(modifier = Modifier.height(4.dp))

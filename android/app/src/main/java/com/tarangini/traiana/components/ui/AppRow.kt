@@ -11,36 +11,48 @@ import androidx.compose.ui.draw.clip
 
 @Composable
 fun AppRow(
-  layout: RowLayout = RowLayout.Center,
   modifier: Modifier = Modifier,
-  verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+
+  horizontal: RowHorizontalPlacement = RowHorizontalPlacement.Center,
+  vertical: RowVerticalPlacement = RowVerticalPlacement.Center,
+
   children: @Composable RowScope.() -> Unit
 ) {
-  val arrangement = when (layout) {
-    RowLayout.Start -> Arrangement.Start
-    RowLayout.Center -> Arrangement.Center
-    RowLayout.End -> Arrangement.End
-    RowLayout.SpaceBetween -> Arrangement.SpaceBetween
-    RowLayout.SpaceAround -> Arrangement.SpaceAround
-    RowLayout.SpaceEvenly -> Arrangement.SpaceEvenly
+  val horizontalArrangement = when (horizontal) {
+    RowHorizontalPlacement.Start -> Arrangement.Start
+    RowHorizontalPlacement.Center -> Arrangement.Center
+    RowHorizontalPlacement.End -> Arrangement.End
+    RowHorizontalPlacement.SpaceBetween -> Arrangement.SpaceBetween
+    RowHorizontalPlacement.SpaceAround -> Arrangement.SpaceAround
+    RowHorizontalPlacement.SpaceEvenly -> Arrangement.SpaceEvenly
+  }
+
+  val verticalAlignment = when (vertical) {
+    RowVerticalPlacement.Top -> Alignment.Top
+    RowVerticalPlacement.Center -> Alignment.CenterVertically
+    RowVerticalPlacement.Bottom -> Alignment.Bottom
   }
 
   Row(
-    modifier = modifier
-      .clip(MaterialTheme.shapes.medium),
-    horizontalArrangement = arrangement,
+    modifier = modifier.clip(MaterialTheme.shapes.medium),
+    horizontalArrangement = horizontalArrangement,
     verticalAlignment = verticalAlignment
   ) {
     children()
   }
 }
 
-
-enum class RowLayout {
+enum class RowHorizontalPlacement {
   Start,
   Center,
   End,
   SpaceBetween,
   SpaceAround,
   SpaceEvenly
+}
+
+enum class RowVerticalPlacement {
+  Top,
+  Center,
+  Bottom
 }

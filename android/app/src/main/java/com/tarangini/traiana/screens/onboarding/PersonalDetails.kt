@@ -23,6 +23,7 @@ import com.dsc.form_builder.FormState
 import com.dsc.form_builder.TextFieldState
 import com.dsc.form_builder.Validators
 import com.tarangini.traiana.components.theme.Colors
+import com.tarangini.traiana.components.theme.Dimens
 import com.tarangini.traiana.components.ui.AppButton
 import com.tarangini.traiana.components.ui.AppInput
 import com.tarangini.traiana.components.ui.AppSelect
@@ -115,7 +116,7 @@ fun PersonalDetails (
       onValueChange = { fullnameState.change(it) },
       placeHolder = "Enter full name"
     )
-
+    Spacer(modifier = Modifier.height(Dimens.SpaceL))
     AppSelect(
       label = "Gender",
       options = listOf("Male", "Female", "Other"),
@@ -123,7 +124,7 @@ fun PersonalDetails (
       onOptionSelected = { genderState.change(it) },
       placeHolder = "Select gender"
     )
-
+    Spacer(modifier = Modifier.height(Dimens.SpaceL))
     AppInput(
       label = "Dob",
       value = dobState.value,
@@ -131,7 +132,7 @@ fun PersonalDetails (
       onValueChange = { dobState.change(it) },
       placeHolder = "Select dob"
     )
-
+    Spacer(modifier = Modifier.height(Dimens.SpaceL))
     AppInput(
       label = "Email",
       value = emailState.value,
@@ -139,7 +140,7 @@ fun PersonalDetails (
       onValueChange = { emailState.change(it) },
       placeHolder = "Enter email"
     )
-
+    Spacer(modifier = Modifier.height(Dimens.SpaceL))
     AppInput(
       label = "Mobile",
       value = mobileState.value,
@@ -147,7 +148,7 @@ fun PersonalDetails (
       onValueChange = { mobileState.change(it) },
       placeHolder = "Enter mobile no."
     )
-
+    Spacer(modifier = Modifier.height(Dimens.SpaceL))
     AppInput(
       label = "Blood Type",
       value = bloodTypeState.value,
@@ -155,7 +156,7 @@ fun PersonalDetails (
       onValueChange = { bloodTypeState.change(it) },
       placeHolder = "Enter blood type"
     )
-
+    Spacer(modifier = Modifier.height(Dimens.SpaceL))
     AppInput(
       label = "Nationality",
       value = nationalityState.value,
@@ -163,7 +164,7 @@ fun PersonalDetails (
       onValueChange = { nationalityState.change(it) },
       placeHolder = "Enter nationality"
     )
-
+    Spacer(modifier = Modifier.height(Dimens.SpaceL))
     Text(
       modifier = Modifier
         .fillMaxWidth(),
@@ -174,7 +175,6 @@ fun PersonalDetails (
       )
     )
     Spacer(modifier = Modifier.height(10.dp))
-
     AppButton(
       text = when(state.registerRequest){
         is Loading -> "Saving..."

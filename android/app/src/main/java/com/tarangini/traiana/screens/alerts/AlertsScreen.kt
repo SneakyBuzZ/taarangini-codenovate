@@ -89,5 +89,6 @@ fun AlertsScreen(){
         AlertCard(alert = alert)
         Spacer(modifier = Modifier.height(Dimens.PaddingS))
       }
+    Spacer(modifier = Modifier.height(Dimens.HeightM))
   }
 }

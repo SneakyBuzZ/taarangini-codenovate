@@ -66,8 +66,8 @@ fun PanicButton(modifier: Modifier = Modifier) {
 
     Log.d("TRIANA", "Location: $location")
     val locationJson = JsonObject().apply {
-      addProperty("latitude", 78.453)
-      addProperty("longitude", 17.412)
+      addProperty("latitude", location.second)
+      addProperty("longitude", location.first)
     }
 
     val emergencyContactJson = JsonObject().apply {

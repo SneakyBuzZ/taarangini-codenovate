@@ -18,16 +18,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksActivityViewModel
-import com.airbnb.mvrx.compose.mavericksViewModel
 import com.tarangini.traiana.components.layout.LocalNavController
 import com.tarangini.traiana.components.theme.Colors
 import com.tarangini.traiana.components.theme.Dimens
-import com.tarangini.traiana.components.ui.AppButton
 import com.tarangini.traiana.components.ui.AppRow
-import com.tarangini.traiana.components.ui.RowLayout
+import com.tarangini.traiana.components.ui.RowHorizontalPlacement
 import com.tarangini.traiana.lib.api.user.UserViewModel
 
 @Composable
@@ -75,14 +71,14 @@ fun HomeScreen() {
     )
     Spacer(modifier = Modifier.height(Dimens.PaddingS))
     AppRow (
-      layout = RowLayout.SpaceBetween,
       modifier = Modifier
         .fillMaxWidth()
         .clip(MaterialTheme.shapes.medium)
         .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.medium)
         .border(1.dp, Colors.Neutral700, MaterialTheme.shapes.medium)
         .height(Dimens.HeightL)
-        .padding(Dimens.PaddingXS)
+        .padding(Dimens.PaddingXS),
+      horizontal = RowHorizontalPlacement.SpaceBetween
     ) {
       Box(
         modifier = Modifier
