@@ -1,0 +1,22 @@
+{
+  "placeholderImages": [
+    {
+      "id": "avatar-police",
+      "description": "Avatar for a police officer profile.",
+      "imageUrl": "https://picsum.photos/seed/avatar/40/40",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "heatmap-placeholder",
+      "description": "Placeholder for a tourist cluster heatmap.",
+      "imageUrl": "https://picsum.photos/seed/heatmap/800/400",
+      "imageHint": "map city"
+    },
+    {
+      "id": "interactive-map-placeholder",
+      "description": "Placeholder for the main interactive map.",
+      "imageUrl": "https://picsum.photos/seed/bigmap/1600/1200",
+      "imageHint": "map satellite"
+    }
+  ]
+}

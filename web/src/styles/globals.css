@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Deep Ocean Blue Theme */
+    --background: 15 23 42;
+    /* slate-900 */
+    --foreground: 248 250 252;
+    /* slate-50 */
+    --card: 30 41 59;
+    /* slate-800 */
+    --card-foreground: 248 250 252;
+    --popover: 30 41 59;
+    --popover-foreground: 248 250 252;
+    --primary: 59 130 246;
+    /* blue-500 */
+    --primary-foreground: 248 250 252;
+    --secondary: 51 65 85;
+    /* slate-700 */
+    --secondary-foreground: 248 250 252;
+    --muted: 71 85 105;
+    /* slate-600 */
+    --muted-foreground: 148 163 184;
+    /* slate-400 */
+    --accent: 99 102 241;
+    /* indigo-500 */
+    --accent-foreground: 248 250 252;
+    --destructive: 239 68 68;
+    /* red-500 */
+    --destructive-foreground: 248 250 252;
+    --border: 71 85 105;
+    /* slate-600 */
+    --input: 51 65 85;
+    /* slate-700 */
+    --ring: 59 130 246;
+    /* blue-500 */
+    --radius: 0.75rem;
+
+    /* Ocean Blue Gradients */
+    --gradient-primary: linear-gradient(135deg, rgb(59, 130, 246) 0%, rgb(99, 102, 241) 100%);
+    --gradient-secondary: linear-gradient(135deg, rgb(51, 65, 85) 0%, rgb(30, 41, 59) 100%);
+    --gradient-accent: linear-gradient(135deg, rgb(99, 102, 241) 0%, rgb(139, 92, 246) 100%);
+    --gradient-danger: linear-gradient(135deg, rgb(239, 68, 68) 0%, rgb(220, 38, 127) 100%);
+    --gradient-success: linear-gradient(135deg, rgb(16, 185, 129) 0%, rgb(34, 197, 94) 100%);
+    --gradient-warning: linear-gradient(135deg, rgb(245, 158, 11) 0%, rgb(251, 146, 60) 100%);
+
+    /* Glass morphism with ocean tones */
+    --glass-bg: rgba(30, 41, 59, 0.8);
+    --glass-border: rgba(148, 163, 184, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.15);
+  }
+
+  .dark {
+    --background: 15 23 42;
+    --foreground: 248 250 252;
+    --card: 30 41 59;
+    --card-foreground: 248 250 252;
+    --popover: 30 41 59;
+    --popover-foreground: 248 250 252;
+    --primary: 59 130 246;
+    --primary-foreground: 248 250 252;
+    --secondary: 51 65 85;
+    --secondary-foreground: 248 250 252;
+    --muted: 71 85 105;
+    --muted-foreground: 148 163 184;
+    --accent: 99 102 241;
+    --accent-foreground: 248 250 252;
+    --destructive: 239 68 68;
+    --destructive-foreground: 248 250 252;
+    --border: 71 85 105;
+    --input: 51 65 85;
+    --ring: 59 130 246;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-feature-settings: 'cv01', 'cv02', 'cv03', 'cv04';
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-neutral-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-800 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-700/70;
+  }
+}
+
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .btn-gradient {
+    background: var(--gradient-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-gradient:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.3);
+  }
+
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Custom typography */
+.font-headline {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}

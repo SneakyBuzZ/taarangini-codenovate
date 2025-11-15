@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="neutral100">#FFFFFF</color>
+    <color name="neutral200">#E9E9E9</color>
+    <color name="neutral300">#C9C9C9</color>
+    <color name="neutral400">#9f9f9f</color>
+    <color name="neutral500">#474747</color>
+    <color name="neutral600">#262626</color>
+    <color name="neutral700">#161616</color>
+    <color name="neutral800">#101010</color>
+    <color name="neutral900">#0E0E0E</color>
+
+    <color name="coralGreen">#06D6A0</color>
+    <color name="coralBlue">#00E5FF</color>
+    <color name="coralRed">#FF0051</color>
+</resources>

@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string
+        name="server_url"
+        translatable="false"
+        tools:ignore="UnusedResources"
+        >
+        http://locahost:8000/api/
+    </string>
+</resources>

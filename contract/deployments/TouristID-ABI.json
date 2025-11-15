@@ -1,0 +1,156 @@
+[
+  {
+    "type": "constructor",
+    "stateMutability": "undefined",
+    "payable": false,
+    "inputs": []
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "AdminChanged",
+    "inputs": [
+      { "type": "address", "name": "oldAdmin", "indexed": true },
+      { "type": "address", "name": "newAdmin", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "TouristIdIssued",
+    "inputs": [
+      { "type": "bytes32", "name": "touristId", "indexed": true },
+      { "type": "address", "name": "issuer", "indexed": true },
+      { "type": "string", "name": "qrCode", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "TouristIdRevoked",
+    "inputs": [
+      { "type": "bytes32", "name": "touristId", "indexed": true },
+      { "type": "address", "name": "revoker", "indexed": true }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "admin",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [],
+    "outputs": [{ "type": "address", "name": "" }]
+  },
+  {
+    "type": "function",
+    "name": "changeAdmin",
+    "constant": false,
+    "payable": false,
+    "inputs": [{ "type": "address", "name": "_newAdmin" }],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "getTouristInfo",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [{ "type": "bytes32", "name": "_touristId" }],
+    "outputs": [
+      {
+        "type": "tuple",
+        "name": "",
+        "components": [
+          { "type": "bytes32", "name": "touristId" },
+          { "type": "bytes32", "name": "kycHash" },
+          { "type": "bytes32", "name": "itineraryHash" },
+          { "type": "bytes32", "name": "emergencyHash" },
+          { "type": "uint256", "name": "startDate" },
+          { "type": "uint256", "name": "endDate" },
+          { "type": "bool", "name": "active" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "getTouristQRCode",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [{ "type": "bytes32", "name": "_touristId" }],
+    "outputs": [{ "type": "string", "name": "" }]
+  },
+  {
+    "type": "function",
+    "name": "issueTouristId",
+    "constant": false,
+    "payable": false,
+    "inputs": [
+      { "type": "bytes32", "name": "_kycHash" },
+      { "type": "bytes32", "name": "_itineraryHash" },
+      { "type": "bytes32", "name": "_emergencyHash" },
+      { "type": "uint256", "name": "_startDate" },
+      { "type": "uint256", "name": "_endDate" }
+    ],
+    "outputs": [{ "type": "bytes32", "name": "" }]
+  },
+  {
+    "type": "function",
+    "name": "revokeTouristId",
+    "constant": false,
+    "payable": false,
+    "inputs": [{ "type": "bytes32", "name": "_touristId" }],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "touristQRCodes",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [{ "type": "bytes32", "name": "" }],
+    "outputs": [{ "type": "string", "name": "" }]
+  },
+  {
+    "type": "function",
+    "name": "tourists",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [{ "type": "bytes32", "name": "" }],
+    "outputs": [
+      { "type": "bytes32", "name": "touristId" },
+      { "type": "bytes32", "name": "kycHash" },
+      { "type": "bytes32", "name": "itineraryHash" },
+      { "type": "bytes32", "name": "emergencyHash" },
+      { "type": "uint256", "name": "startDate" },
+      { "type": "uint256", "name": "endDate" },
+      { "type": "bool", "name": "active" }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "verifyTouristHashes",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [
+      { "type": "bytes32", "name": "_touristId" },
+      { "type": "bytes32", "name": "_kycHash" },
+      { "type": "bytes32", "name": "_itineraryHash" },
+      { "type": "bytes32", "name": "_emergencyHash" }
+    ],
+    "outputs": [{ "type": "bool", "name": "" }]
+  },
+  {
+    "type": "function",
+    "name": "verifyTouristId",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [{ "type": "bytes32", "name": "_touristId" }],
+    "outputs": [{ "type": "bool", "name": "" }]
+  }
+]
