@@ -2,7 +2,7 @@ import { Router } from "express";
 import AlertController from "@/_user/controllers/alert-controller";
 import { authenticateJwt } from "@/middlewares/authenticate-middleware";
 import { validateData } from "@/middlewares/validate-middleware";
-import { RegisterAlertDTO, NearestAlertsDTO } from "../dto";
+import { RegisterAlertDTO, NearestAlertsDTO, SafetyMetricsDTO } from "../dto";
 import { catchAsync } from "@/utils/catch-async";
 
 const alertRouter = Router();
@@ -15,12 +15,19 @@ alertRouter.post(
   catchAsync(alertController.register)
 );
 
-alertRouter.get(
-  "/",
+alertRouter.post(
+  "/nearby",
   validateData(NearestAlertsDTO),
   catchAsync(alertController.getNearestAlerts)
 );
 
 alertRouter.get("/:id", catchAsync(alertController.getById));
+
+// new: compute safety for a specific alert (body = normalized metrics 0..1)
+alertRouter.post(
+  "/:id/safety",
+  validateData(SafetyMetricsDTO),
+  catchAsync(alertController.computeSafety)
+);
 
 export default alertRouter;
