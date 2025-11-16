@@ -18,13 +18,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.tarangini.traiana.BuildConfig
 import com.airbnb.mvrx.compose.mavericksActivityViewModel
 import com.tarangini.traiana.components.layout.LocalNavController
+import com.tarangini.traiana.components.shared.AlertDialogListener
 import com.tarangini.traiana.components.theme.Colors
 import com.tarangini.traiana.components.theme.Dimens
+import com.tarangini.traiana.components.ui.AppBadge
 import com.tarangini.traiana.components.ui.AppRow
+import com.tarangini.traiana.components.ui.BadgeVariant
 import com.tarangini.traiana.components.ui.RowHorizontalPlacement
 import com.tarangini.traiana.lib.api.user.UserViewModel
+import com.tarangini.traiana.lib.api.wss.SosViewModel
 
 @Composable
 fun HomeScreen() {
@@ -33,6 +38,11 @@ fun HomeScreen() {
   val scrollState = rememberScrollState()
   val navController = LocalNavController.current
   val userViewModel : UserViewModel = mavericksActivityViewModel()
+  val sosViewModel : SosViewModel = mavericksActivityViewModel()
+
+  //parameters
+  val safetyScoreValue by remember { mutableIntStateOf(82) }
+  val safetyScoreTimeValue by remember { mutableStateOf("10 min ago") }
 
   val launcher = rememberLauncherForActivityResult(
     contract = ActivityResultContracts.RequestMultiplePermissions()
@@ -46,6 +56,11 @@ fun HomeScreen() {
       hasPermission = true
     else launcher.launch(locationPermissions)
     userViewModel.getUser()
+
+    sosViewModel.connectWebSocket(
+      token = BuildConfig.TOKEN,
+      socketUrl = BuildConfig.SOCKET_URL
+    )
   }
 
   fun handleClick(){
@@ -61,6 +76,23 @@ fun HomeScreen() {
       .verticalScroll(scrollState),
     verticalArrangement = Arrangement.Top
   ) {
+    AppRow(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = Dimens.PaddingXS),
+      horizontal = RowHorizontalPlacement.Start
+    ) {
+      filterBadgeList.map {
+        AppBadge(
+          text = it.first,
+          variant = it.second,
+          onClick = {}
+        )
+        Spacer(modifier = Modifier
+          .padding(Dimens.SpaceXS))
+      }
+    }
+
     MapCard(
       hasPermission = hasPermission,
       modifier = Modifier
@@ -85,26 +117,39 @@ fun HomeScreen() {
           .weight(0.8f)
       ){
         SafetyScoreCard(
-          score = 85,
-          lastUpdated = "2 min ago"
+          score = safetyScoreValue,
+          lastUpdated = safetyScoreTimeValue
         )
       }
-      val detailsList = listOf(
-        Pair("Nearby Safe Zones", "3"),
-        Pair("Nearby Alerts", "2"),
-        Pair("Nearby Risky Zones", "1"),
-        Pair("Police Stations", "0")
-      )
+
       ScoreDetails(
         detailsList = detailsList,
         modifier = Modifier
           .weight(1f),
       )
     }
+    Spacer(modifier = Modifier.height(Dimens.PaddingS))
+    GetSafeRouteCard()
+    Spacer(modifier = Modifier.height(Dimens.HeightS))
+
+    AlertDialogListener(sosViewModel)
   }
 }
 
 private val locationPermissions = arrayOf(
   Manifest.permission.ACCESS_FINE_LOCATION,
   Manifest.permission.ACCESS_COARSE_LOCATION
+)
+
+val filterBadgeList = listOf(
+  Pair("Time", BadgeVariant.Info),
+  Pair("Safety", BadgeVariant.Success),
+  Pair("Lights", BadgeVariant.Outline),
+)
+
+val detailsList = listOf(
+  Pair("Nearby Safe Zones", "1"),
+  Pair("Nearby Alerts", "3"),
+  Pair("Nearby Risky Zones", "2"),
+  Pair("Police Stations", "4")
 )

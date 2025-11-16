@@ -16,6 +16,9 @@ val localProperties = Properties().apply {
 
 val apiUrl = localProperties.getProperty("API_URL") ?: "https://defaulturl.com"
 val socketUrl = localProperties.getProperty("SOCKET_URL") ?: "ws://defaulturl.com"
+val token = localProperties.getProperty("TOKEN") ?: ""
+val tripConfig = localProperties.getProperty("TRIP_CONFIG") ?: ""
+
 
 
 android {
@@ -37,6 +40,8 @@ android {
 
     buildConfigField("String","API_URL","\"$apiUrl\"")
     buildConfigField("String","SOCKET_URL","\"$socketUrl\"")
+    buildConfigField("String","TOKEN","\"$token\"")
+    buildConfigField("String","TRIP_CONFIG","\"$tripConfig\"")
   }
 
   buildTypes {
