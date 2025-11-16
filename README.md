@@ -1,4 +1,4 @@
-# Triana – SafeJourney Navigation System
+# Traiana – SafeJourney Navigation System
 
 **Team:** Taarangini  
 **Hackathon:** Codenovate 25  
