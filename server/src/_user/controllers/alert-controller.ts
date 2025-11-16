@@ -27,7 +27,6 @@ class AlertController {
     res.status(200).json(new DataResponse(200, alert, "Alert fetched"));
   };
 
-  // POST /api/alert/nearby -> body: { latitude, longitude, maxDistanceKm?, limit? }
   getNearestAlerts = async (req: Request, res: Response) => {
     const body = req.body as NearestAlertsDTOType;
     // basic validation is handled by validateData middleware
@@ -35,7 +34,6 @@ class AlertController {
     res.status(200).json(new DataResponse(200, alerts, "Nearest alerts"));
   };
 
-  // new: compute safety for an alert and persist it
   computeSafety = async (req: Request, res: Response) => {
     const { id } = req.params;
     if (!id || !ObjectId.isValid(id)) throw new AppError(400, "Invalid id");

@@ -80,10 +80,14 @@ export class AlertRepository {
       wp?: number;
       wr?: number;
       ws?: number;
+      // UI filters
+      time?: string;
+      safety?: number;
     }
   ) {
     if (!ObjectId.isValid(alertId)) return null;
 
+    // Defaults for all metrics
     const defaults = {
       crime: 0,
       accident: 0,
@@ -94,29 +98,101 @@ export class AlertRepository {
       pedestrian: 0,
     };
 
-    const m = { ...defaults, ...(metrics || {}) } as Record<string, number>;
+    // Extract UI filters
+    const timeFilter = metrics.time;
+    const lightingFilter =
+      typeof metrics.lighting === "number" ? metrics.lighting : undefined;
+    const safetyFilter =
+      typeof metrics.safety === "number" ? metrics.safety : undefined;
 
-    // default weights from your prompt
-    const weightsDefault = {
-      wc: 0.3,
-      wa: 0.15,
-      wl: 0.15,
-      wv: 0.1,
-      wp: 0.07,
-      wr: 0.08,
-      ws: 0.15,
+    // Compose metrics for formula (exclude non-numeric)
+    const { time: _omitTime, safety: _omitSafety, ...numericMetrics } = metrics;
+    const m = { ...defaults, ...numericMetrics } as Record<string, number>;
+
+    // Default weights
+    let weightsDefault = {
+      wc: 0.3, // crime
+      wa: 0.15, // accident
+      wl: 0.15, // lighting
+      wv: 0.1, // cctv
+      wp: 0.07, // pedestrian
+      wr: 0.08, // response
+      ws: 0.15, // sos
     };
 
-    const w = {
-      ...weightsDefault,
-      wc: metrics.wc ?? weightsDefault.wc,
-      wa: metrics.wa ?? weightsDefault.wa,
-      wl: metrics.wl ?? weightsDefault.wl,
-      wv: metrics.wv ?? weightsDefault.wv,
-      wp: metrics.wp ?? weightsDefault.wp,
-      wr: metrics.wr ?? weightsDefault.wr,
-      ws: metrics.ws ?? weightsDefault.ws,
-    } as Record<string, number>;
+    // Adjust weights based on filters
+    if (timeFilter === "night") {
+      weightsDefault.wl = 0.3; // lighting more important at night
+      weightsDefault.wc = 0.4; // crime more important at night
+      // Aggressive weight adjustment based on filters
+      if (timeFilter === "night") {
+        weightsDefault = {
+          wc: 0.45,
+          wa: 0.25,
+          wl: 0.05,
+          wv: 0.05,
+          wp: 0.03,
+          wr: 0.07,
+          ws: 0.1,
+        };
+      } else if (timeFilter === "day") {
+        weightsDefault = {
+          wc: 0.15,
+          wa: 0.1,
+          wl: 0.15,
+          wv: 0.2,
+          wp: 0.2,
+          wr: 0.1,
+          ws: 0.1,
+        };
+      }
+
+      if (lightingFilter !== undefined && lightingFilter < 0.5) {
+        weightsDefault = {
+          wc: 0.1,
+          wa: 0.1,
+          wl: 0.5,
+          wv: 0.1,
+          wp: 0.05,
+          wr: 0.05,
+          ws: 0.1,
+        };
+      }
+
+      if (safetyFilter !== undefined && safetyFilter < 0.5) {
+        weightsDefault = {
+          wc: 0.1,
+          wa: 0.05,
+          wl: 0.05,
+          wv: 0.05,
+          wp: 0.05,
+          wr: 0.25,
+          ws: 0.45,
+        };
+      }
+
+      // Normalize weights so their sum is 1
+      const totalWeight = Object.values(weightsDefault).reduce(
+        (sum, val) => sum + val,
+        0
+      );
+      (
+        Object.keys(weightsDefault) as Array<keyof typeof weightsDefault>
+      ).forEach((k) => {
+        weightsDefault[k] = +(weightsDefault[k] / totalWeight);
+      });
+    }
+
+    // Allow override from payload
+    const w: Record<string, number> = {
+      wc: typeof metrics.wc === "number" ? metrics.wc : weightsDefault.wc,
+      wa: typeof metrics.wa === "number" ? metrics.wa : weightsDefault.wa,
+      wl: typeof metrics.wl === "number" ? metrics.wl : weightsDefault.wl,
+      wv: typeof metrics.wv === "number" ? metrics.wv : weightsDefault.wv,
+      wp: typeof metrics.wp === "number" ? metrics.wp : weightsDefault.wp,
+      wr: typeof metrics.wr === "number" ? metrics.wr : weightsDefault.wr,
+      ws: typeof metrics.ws === "number" ? metrics.ws : weightsDefault.ws,
+    };
 
     // formula: inner = wc*C + wa*A + wl*(1-L) + wv*(1-V) + wp*(1-P) + wr*R + ws*S
     const inner =
