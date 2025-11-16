@@ -1,4 +1,9 @@
-import type { RegisterAlertDTO, NearestAlertsDTOType } from "@/_user/dto";
+import type {
+  RegisterAlertDTO,
+  NearestAlertsDTOType,
+  RegisterAlertDTOType,
+  SafetyMetricsDTOType,
+} from "@/_user/dto";
 import { AlertRepository } from "@/_user/repositories/alert-repository";
 export class AlertService {
   private alertRepository: AlertRepository;
@@ -6,7 +11,7 @@ export class AlertService {
     this.alertRepository = new AlertRepository();
   }
 
-  async register(data: RegisterAlertDTO, userId?: string) {
+  async register(data: RegisterAlertDTOType, userId?: string) {
     const alertId = await this.alertRepository.save(data, userId);
     return alertId;
   }
@@ -23,5 +28,10 @@ export class AlertService {
       maxDistanceMeters,
       limit
     );
+  }
+
+  // new: compute safety and persist
+  async computeSafety(alertId: string, metrics: SafetyMetricsDTOType) {
+    return this.alertRepository.computeAndSaveSafety(alertId, metrics as any);
   }
 }

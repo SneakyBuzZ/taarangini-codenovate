@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { AlertService } from "@/_user/services/alert-service";
 import { DataResponse } from "@/utils/response";
 import { AppError } from "@/utils/error";
-import type { NearestAlertsDTOType } from "@/_user/dto";
+import type { NearestAlertsDTOType, SafetyMetricsDTOType } from "@/_user/dto";
+import { ObjectId } from "mongodb";
 
 class AlertController {
   private alertService: AlertService;
@@ -26,13 +27,20 @@ class AlertController {
     res.status(200).json(new DataResponse(200, alert, "Alert fetched"));
   };
 
-  // POST /api/alert/nearby -> body: { latitude, longitude, maxDistanceKm?, limit? }
   getNearestAlerts = async (req: Request, res: Response) => {
     const body = req.body as NearestAlertsDTOType;
-    const { maxDistanceKm, limit } = req.query;
     // basic validation is handled by validateData middleware
     const alerts = await this.alertService.getNearestAlerts(body);
     res.status(200).json(new DataResponse(200, alerts, "Nearest alerts"));
+  };
+
+  computeSafety = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if (!id || !ObjectId.isValid(id)) throw new AppError(400, "Invalid id");
+    const metrics = req.body as SafetyMetricsDTOType;
+    const safety = await this.alertService.computeSafety(id, metrics);
+    if (!safety) throw new AppError(500, "Failed to compute safety");
+    res.status(200).json(new DataResponse(200, safety, "Safety computed"));
   };
 }
 

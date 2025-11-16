@@ -69,21 +69,31 @@ export const RegisterItineraryDTO = z.object({
 export type RegisterItineraryDTOType = z.infer<typeof RegisterItineraryDTO>;
 
 // --- ALERT ---
-
 export const RegisterAlertDTO = z.object({
   image: z.string().url(),
-  // image: z.string(),
   title: z.string().min(2).max(100),
-  description: z.string().min(5).max(250),
-  location: z.string().min(5).max(100),
+  description: z.string().min(5).max(1000),
+  location: z.string().min(3).max(200),
   severity: z.number().min(0).max(10),
-  categoryChip: z.array(z.enum(["Weather", "Crime", "Health", "Transport"])),
-  //GeoJSON
+  categoryChip: z.array(
+    z.enum([
+      "Weather",
+      "Crime",
+      "Health",
+      "Transport",
+      "Infrastructure",
+      "Fire",
+      "Accident",
+      "Theft",
+      "Assault",
+      "Public Safety",
+    ])
+  ),
+  // GeoJSON Point: [longitude, latitude]
   coordinates: z.object({
     type: z.literal("Point"),
     coordinates: z
       .tuple([z.number(), z.number()])
-      //Refine is used to validate the input values so that the database does not contain impure values
       .refine(
         (val) =>
           val[0] >= -180 && val[0] <= 180 && val[1] >= -90 && val[1] <= 90,
@@ -91,8 +101,27 @@ export const RegisterAlertDTO = z.object({
       ),
   }),
 });
+export type RegisterAlertDTOType = z.infer<typeof RegisterAlertDTO>;
 
-export type RegisterAlertDTO = z.infer<typeof RegisterAlertDTO>;
+// Safety metrics DTO (normalized values 0..1) — add this, do NOT remove RegisterAlertDTO
+export const SafetyMetricsDTO = z.object({
+  crime: z.number().min(0).max(1).optional(),
+  accident: z.number().min(0).max(1).optional(),
+  response: z.number().min(0).max(1).optional(),
+  sos: z.number().min(0).max(1).optional(),
+  lighting: z.number().min(0).max(1).optional(),
+  cctv: z.number().min(0).max(1).optional(),
+  pedestrian: z.number().min(0).max(1).optional(),
+  // optional weight overrides (0..1)
+  wc: z.number().min(0).max(1).optional(),
+  wa: z.number().min(0).max(1).optional(),
+  wl: z.number().min(0).max(1).optional(),
+  wv: z.number().min(0).max(1).optional(),
+  wp: z.number().min(0).max(1).optional(),
+  wr: z.number().min(0).max(1).optional(),
+  ws: z.number().min(0).max(1).optional(),
+});
+export type SafetyMetricsDTOType = z.infer<typeof SafetyMetricsDTO>;
 
 // DTO for fetching nearest alerts
 export const NearestAlertsDTO = z.object({
