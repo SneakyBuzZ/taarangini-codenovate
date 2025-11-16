@@ -38,7 +38,7 @@ fun MapCard(
   val context = LocalContext.current
   val viewportState = rememberMapViewportState {
     setCameraOptions {
-      zoom(17.0)
+      zoom(20.0)
       pitch(defaultPitch)
     }
   }
@@ -141,7 +141,9 @@ fun MapCard(
           puckBearing = PuckBearing.HEADING
           puckBearingEnabled = true
         }
-        mapboxMap.loadStyleUri(styleUri)
+        mapboxMap.loadStyleUri(styleUri) { style ->
+          addSafeAndUnsafeHeatmaps(style)
+        }
 
         var movedOnce = false
         val listener = OnIndicatorPositionChangedListener { point ->

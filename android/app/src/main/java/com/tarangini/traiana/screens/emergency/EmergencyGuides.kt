@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import com.tarangini.traiana.R
 import com.tarangini.traiana.components.theme.Colors
 import com.tarangini.traiana.components.theme.Dimens
@@ -18,6 +19,7 @@ import com.tarangini.traiana.components.ui.DividerStyle
 
 @Composable
 fun EmergencyGuides() {
+  // Data list for all guides
   AppColumn(
     modifier = Modifier
       .fillMaxWidth()
@@ -26,98 +28,78 @@ fun EmergencyGuides() {
       .padding(Dimens.PaddingXS),
     horizontal = ColumnHorizontalPlacement.Start
   ) {
-    GuideRow(
-      title = "Fainting: What to Do",
-      description = "Check breathing • Raise legs • Loosen clothing",
-      leadingIconRes = R.drawable.ic_first_aid,
-      leftIconTint = Colors.CoralRed100.copy(alpha = 0.3f),
-      onClick = { }
-    )
-    AppDivider(
-      orientation = DividerOrientation.Horizontal,
-      style = DividerStyle.Dotted,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = Dimens.SpaceS)
-    )
+    guides.forEachIndexed { index, guide ->
+      GuideRow(
+        title = guide.title,
+        description = guide.description,
+        leadingIconRes = guide.leadingIconRes,
+        leftIconTint = guide.leftIconTint,
+        onClick = guide.onClick
+      )
 
-    GuideRow(
-      title = "Road Accident Guide",
-      description = "Check injuries • Move to safety • Call emergency",
-      leadingIconRes = R.drawable.ic_bus_front,
-      onClick = { }
-    )
-    AppDivider(
-      orientation = DividerOrientation.Horizontal,
-      style = DividerStyle.Dotted,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = Dimens.SpaceS)
-    )
-
-    GuideRow(
-      title = "Panic Attack Help",
-      description = "Slow breaths • Grounding technique • Reassure",
-      leadingIconRes = R.drawable.ic_waves,
-      leftIconTint = Colors.CoralRed300.copy(alpha = 0.4f),
-      onClick = { }
-    )
-    AppDivider(
-      orientation = DividerOrientation.Horizontal,
-      style = DividerStyle.Dotted,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = Dimens.SpaceS)
-    )
-
-    GuideRow(
-      title = "Snake Bite Steps",
-      description = "Stay still • Keep limb lowered • No cutting/sucking",
-      leadingIconRes = R.drawable.ic_snake,
-      leftIconTint = Colors.CoralGreen200.copy(alpha = 0.2f),
-      onClick = { }
-    )
-    AppDivider(
-      orientation = DividerOrientation.Horizontal,
-      style = DividerStyle.Dotted,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = Dimens.SpaceS)
-    )
-
-    GuideRow(
-      title = "Unconscious Person",
-      description = "Check pulse • Put in recovery position • Stay nearby",
-      leadingIconRes = R.drawable.ic_brain_not,
-      onClick = { }
-    )
-    AppDivider(
-      orientation = DividerOrientation.Horizontal,
-      style = DividerStyle.Dotted,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = Dimens.SpaceS)
-    )
-    GuideRow(
-      title = "Fire Emergency Basics",
-      description = "Stop-Drop-Roll • Avoid smoke • Keep low",
-      leadingIconRes = R.drawable.ic_fire,
-      leftIconTint = Colors.CoralAmber300.copy(alpha = 0.6f),
-      onClick = { }
-    )
-    AppDivider(
-      orientation = DividerOrientation.Horizontal,
-      style = DividerStyle.Dotted,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = Dimens.SpaceS)
-    )
-    GuideRow(
-      title = "Severe Bleeding",
-      description = "Apply pressure • Elevate area • Avoid removing cloth",
-      leadingIconRes = R.drawable.ic_blood,
-      leftIconTint = Colors.CoralRed200.copy(alpha = 0.6f),
-      onClick = { }
-    )
+      if (index < guides.lastIndex) {
+        AppDivider(
+          orientation = DividerOrientation.Horizontal,
+          style = DividerStyle.Dotted,
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = Dimens.SpaceS)
+        )
+      }
+    }
   }
 }
+
+// Simple data holder for each guide
+data class GuideItem(
+  val title: String,
+  val description: String,
+  val leadingIconRes: Int,
+  val leftIconTint: Color,
+  val onClick: () -> Unit = {}
+)
+
+val guides = listOf(
+  GuideItem(
+    title = "Fainting: What to Do",
+    description = "Check breathing • Raise legs • Loosen clothing",
+    leadingIconRes = R.drawable.ic_first_aid,
+    leftIconTint = Colors.CoralRed100.copy(alpha = 0.3f)
+  ),
+  GuideItem(
+    title = "Road Accident Guide",
+    description = "Check injuries • Move to safety • Call emergency",
+    leadingIconRes = R.drawable.ic_bus_front,
+    leftIconTint = Colors.CoralRed100.copy(alpha = 0.3f)
+  ),
+  GuideItem(
+    title = "Panic Attack Help",
+    description = "Slow breaths • Grounding technique • Reassure",
+    leadingIconRes = R.drawable.ic_waves,
+    leftIconTint = Colors.CoralRed300.copy(alpha = 0.4f)
+  ),
+  GuideItem(
+    title = "Snake Bite Steps",
+    description = "Stay still • Keep limb lowered • No cutting/sucking",
+    leadingIconRes = R.drawable.ic_snake,
+    leftIconTint = Colors.CoralGreen200.copy(alpha = 0.2f)
+  ),
+  GuideItem(
+    title = "Unconscious Person",
+    description = "Check pulse • Put in recovery position • Stay nearby",
+    leadingIconRes = R.drawable.ic_brain_not,
+    leftIconTint = Colors.CoralRed200.copy(alpha = 0.1f)
+  ),
+  GuideItem(
+    title = "Fire Emergency Basics",
+    description = "Stop-Drop-Roll • Avoid smoke • Keep low",
+    leadingIconRes = R.drawable.ic_fire,
+    leftIconTint = Colors.CoralAmber300.copy(alpha = 0.6f)
+  ),
+  GuideItem(
+    title = "Severe Bleeding",
+    description = "Apply pressure • Elevate area • Avoid removing cloth",
+    leadingIconRes = R.drawable.ic_blood,
+    leftIconTint = Colors.CoralRed200.copy(alpha = 0.6f)
+  )
+)
